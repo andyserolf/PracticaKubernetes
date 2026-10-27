@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: desarrollo
+  labels:
+    environment: dev
+    project: andys-pipeart
