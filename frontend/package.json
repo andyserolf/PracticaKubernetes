@@ -1,0 +1,10 @@
+{
+    "name": "andys-pipeart-frontend",
+    "version": "1.0.0",
+    "description": "Interfaz frontend para Andy's pipeArt",
+    "main": "index.html",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {}
+  }

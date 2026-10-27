@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andy's pipeArt — Gestión de Pedidos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fdfaf6; color: #4a4a4a; margin: 0; padding: 20px; }
+        header { background-color: #ffb7b2; padding: 20px; border-radius: 12px; text-align: center; color: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h1 { margin: 0; font-size: 24px; }
+        .container { max-width: 800px; margin: 30px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        button { background-color: #ffdac1; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; color: #555; transition: 0.2s; }
+        button:hover { background-color: #ffb7b2; color: #fff; }
+        #resultado { margin-top: 20px; padding: 15px; background: #f7f7f7; border-radius: 8px; border-left: 4px solid #ffb7b2; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌸 Andy's pipeArt 🌸</h1>
+        <p>Sistema Integral de Gestión de Pedidos y Catálogo Artesanal</p>
+    </header>
+    <div class="container">
+        <h3>Panel de Control del Cliente / Artesano</h3>
+        <p>Haz clic en el botón para verificar la conexión con la API REST en el clúster de Kubernetes:</p>
+        <button onclick="probarAPI()">Consultar Estado de la API</button>
+        <div id="resultado">Esperando consulta...</div>
+    </div>
+
+    <script>
+        async function probarAPI() {
+            const div = document.getElementById('resultado');
+            div.innerHTML = "Conectando con el servidor...";
+            try {
+                const response = await fetch('/api/pedidos');
+                const data = await response.json();
+                div.innerHTML = `<strong>¡Conexión Exitosa!</strong><br>Mensaje: ${data.mensaje}<br>Estado: ${data.estado}`;
+            } catch (error) {
+                div.innerHTML = `<span style="color: red;">Error al conectar con la API: ${error.message}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
