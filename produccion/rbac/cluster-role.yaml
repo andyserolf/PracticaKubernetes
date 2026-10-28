@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: produccion
+  name: andys-backend-role
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: andys-backend-binding
+  namespace: produccion
+subjects:
+- kind: ServiceAccount
+  name: andys-backend-sa
+  namespace: produccion
+roleRef:
+  kind: Role
+  name: andys-backend-role
+apiGroup: rbac.authorization.k8s.io
