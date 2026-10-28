@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mongo-backup-cronjob
+  namespace: produccion
+spec:
+  schedule: "0 3 * * *" # Todos los días a las 3:00 AM
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: mongo-backup
+            image: mongo:6.0
+            command:
+            - /bin/sh
+            - -c
+            - |
+              FECHA=$(date +%Y%m%d_%H%M%S)
+              mongodump --host mongo-service --db andys_pipeart_nosql --out /backups/mongo_backup_$FECHA
+              echo "Backup no relacional MongoDB completado: mongo_backup_$FECHA"
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backups
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: backup-pvc
