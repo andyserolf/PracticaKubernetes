@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: produccion
+  labels:
+    environment: prod
+    project: andys-pipeart
